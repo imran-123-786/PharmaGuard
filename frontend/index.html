@@ -46,40 +46,37 @@
   <!-- MAIN DASHBOARD -->
   <div class="dashboard">
 
-    <!-- ================= TOP INFO CARDS (UPDATED) ================= -->
+    <!-- ================= TOP INFO CARDS ================= -->
     <div class="info-cards">
-
-      <div class="info-card drug-card">
+      <div class="info-card">
         <h4>Drug Selected</h4>
         <p><span id="drugInfo">—</span></p>
       </div>
-
-      <div class="info-card gene-card">
+      <div class="info-card">
         <h4>Primary Gene</h4>
         <p><span id="geneInfo">—</span></p>
       </div>
-
-      <div class="info-card risk-card" id="riskCard">
+      <div class="info-card">
         <h4>Risk Level</h4>
         <p><span id="riskInfo">—</span></p>
       </div>
-
-      <div class="info-card confidence-card">
+      <div class="info-card">
         <h4>Risk Percentage</h4>
         <p><span id="confidenceInfo">—</span></p>
       </div>
-
     </div>
-    <!-- ============================================================= -->
 
-    <!-- ANALYSIS PANEL -->
+    <!-- ================= ANALYSIS PANEL ================= -->
     <div class="panel">
       <h2>Genetic Drug Risk Analysis</h2>
 
       <div class="form-grid">
         <div>
           <label>Upload VCF File</label>
-          <input type="file" id="vcfFile" />
+          <input type="file" id="vcfFile" accept=".vcf" />
+          <small class="file-hint">
+            Supported: <strong>.vcf</strong> | Max size: <strong>5MB</strong>
+          </small>
         </div>
 
         <div>
@@ -109,7 +106,7 @@
       <button onclick="analyze()">Run Analysis</button>
     </div>
 
-    <!-- RESULT PANEL -->
+    <!-- ================= RESULT PANEL ================= -->
     <div class="panel hidden" id="resultPanel">
 
       <h2>Risk Assessment</h2>
@@ -118,40 +115,71 @@
         <span id="riskLabel"></span>
         <span id="riskPercent"></span>
       </div>
-         
-      <!-- ALTERNATIVE DRUGS -->
+
+      <!-- ================= CLINICAL RECOMMENDATION ================= -->
+      <div class="panel-section">
+        <h3>Clinical Recommendation</h3>
+        <div id="recommendationBox" class="recommendation-box">
+          <span id="recommendationText"></span>
+        </div>
+      </div>
+
+      <!-- ================= SYMPTOMS & ACTIONS ================= -->
+      <div class="panel-section" id="symptomsActionsSection" style="display:none;">
+        <h3>Symptoms & Actions (If Already Taken!!)</h3>
+
+        <div class="symptoms-box">
+          <h4>⚠️ Possible Symptoms</h4>
+          <ul id="symptomsList"></ul>
+
+          <h4>🚑 Recommended Actions</h4>
+          <ul id="actionsList"></ul>
+        </div>
+      </div>
+
+      <!-- ================= ALTERNATIVE DRUGS ================= -->
       <div class="panel-section" id="altDrugSection" style="display:none;">
-        <h3>Alternative Drug Recommendations</h3>
+        <h3>Alternative Drug & Dosage Recommendations</h3>
+
         <table class="alt-drug-table">
           <thead>
             <tr>
               <th>Drug</th>
-              <th>Risk Level</th>
-              <th>Recommendation</th>
+              <th>Risk / Action</th>
+              <th>Dosage Guidance</th>
             </tr>
           </thead>
           <tbody id="altDrugTableBody"></tbody>
         </table>
-        <p class="disclaimer">⚠ Decision-support only. Consult clinician.</p>
+
+        <p class="disclaimer">
+          ⚠ Decision-support only. Final prescription must be made by a qualified clinician.
+        </p>
       </div>
 
-      <!-- RISK CHARTS -->
-        <div class="panel-section">
+      <!-- ================= VISUALIZATION (FIXED) ================= -->
+      <!-- ================= VISUALIZATION ================= -->
+<div class="panel-section">
   <h3>Risk Visualization</h3>
 
-  <div class="chart-container">
-    <div class="chart-box bar">
+  <div class="chart-container split">
+    
+    <!-- BAR CHART -->
+    <div class="chart-box half">
+      <h4 class="chart-title">Risk Percentage (Bar Chart)</h4>
       <canvas id="riskBarChart"></canvas>
     </div>
 
-    <div class="chart-box pie">
+    <!-- PIE CHART -->
+    <div class="chart-box half">
+      <h4 class="chart-title">Risk Distribution (Pie Chart)</h4>
       <canvas id="riskPieChart"></canvas>
     </div>
+
   </div>
 </div>
 
-
-      <!-- GENES -->
+      <!-- ================= DETECTED GENES ================= -->
       <div class="panel-section">
         <h3>Detected Pharmacogenomic Genes</h3>
         <ul id="geneList" class="gene-list">
@@ -164,39 +192,49 @@
         </ul>
       </div>
 
-      <!-- EXPLANATION -->
+      <!-- ================= EXPLANATION ================= -->
       <div class="panel-section">
         <h3>Explainable AI Summary</h3>
         <p id="explanation"></p>
       </div>
 
-      <!-- TRACE -->
+      <!-- ================= TRACE ================= -->
       <div class="panel-section">
         <h3>Decision Trace</h3>
         <ul id="trace"></ul>
       </div>
 
-      <!-- JSON -->
+      <!-- ================= JSON ================= -->
       <div class="panel-section">
-        <h3>Structured JSON Output</h3>
+        <div class="json-header">
+          <h3>📋 Structured JSON Report</h3>
+          <button class="copy-btn" onclick="copyJSONReport()">📎 Copy</button>
+        </div>
         <pre id="jsonOutput"></pre>
       </div>
 
-      <!-- CHATBOT -->
+      <!-- ================= CHATBOT ================= -->
       <div class="panel-section">
         <h3>24/7 AI Help Assistant</h3>
         <div class="chatbot-box">
           <div id="chatHistory"></div>
-          <input type="text" id="chatMessage" placeholder="Ask..." />
+          <input type="text" id="chatMessage" placeholder="Ask about your result..." />
           <button onclick="sendChat()">Send</button>
         </div>
+      </div>
+
+      <!-- ================= DOWNLOAD ================= -->
+      <div class="panel-section">
+        <button class="download-btn" onclick="downloadReport()">
+          📄 Download Report (JSON Format)
+        </button>
       </div>
 
     </div>
   </div>
 </div>
 
-<!-- ================= SCRIPTS ================= -->
+<!-- ================= JS FILES ================= -->
 <script src="assets/js/auth.js"></script>
 <script src="assets/js/chatbot.js"></script>
 <script src="assets/js/analyze.js"></script>

@@ -4,16 +4,71 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 RULES_FILE = os.path.join(BASE_DIR, "data", "pharmaco_rules.json")
 
-ALTERNATIVES = {
-    "CODEINE": ["Non-opioid analgesics", "Morphine (clinical supervision)"],
-    "CLOPIDOGREL": ["Prasugrel", "Ticagrelor"],
-    "WARFARIN": ["DOACs", "Heparin"],
-    "SIMVASTATIN": ["Pravastatin", "Rosuvastatin"],
-    "AZATHIOPRINE": ["Methotrexate", "Mycophenolate mofetil"],
-    "FLUOROURACIL": ["Capecitabine (adjusted)", "Alternative regimen"]
+# -------------------------------------------------
+# Therapy, dosage, symptoms & actions knowledge
+# -------------------------------------------------
+THERAPY_GUIDANCE = {
+    "CODEINE": {
+        "PM": {
+            "alternatives": ["Paracetamol", "Morphine (clinical supervision)"],
+            "dosage": "Avoid codeine.",
+            "symptoms": [
+                "Extreme drowsiness",
+                "Respiratory depression",
+                "Nausea or vomiting"
+            ],
+            "actions": [
+                "Stop taking the drug immediately",
+                "Seek medical attention",
+                "Monitor breathing closely"
+            ]
+        },
+        "IM": {
+            "alternatives": ["Paracetamol"],
+            "dosage": "Reduce dose by 25–50%.",
+            "symptoms": ["Drowsiness", "Dizziness"],
+            "actions": [
+                "Reduce dose",
+                "Report symptoms to doctor"
+            ]
+        },
+        "NM": {
+            "alternatives": [],
+            "dosage": "Standard dosage.",
+            "symptoms": [],
+            "actions": []
+        }
+    },
+
+    "CLOPIDOGREL": {
+        "PM": {
+            "alternatives": ["Prasugrel", "Ticagrelor"],
+            "dosage": "Avoid clopidogrel.",
+            "symptoms": [
+                "Poor platelet inhibition",
+                "Risk of clot formation"
+            ],
+            "actions": [
+                "Switch to alternative antiplatelet",
+                "Consult cardiologist"
+            ]
+        },
+        "IM": {
+            "alternatives": ["Prasugrel"],
+            "dosage": "Consider higher dose or alternative.",
+            "symptoms": ["Reduced drug effectiveness"],
+            "actions": ["Monitor platelet response"]
+        },
+        "NM": {
+            "alternatives": [],
+            "dosage": "Standard dosage.",
+            "symptoms": [],
+            "actions": []
+        }
+    }
 }
 
-
+# -------------------------------------------------
 def assess_risk(variants, drug):
     with open(RULES_FILE) as f:
         rules = json.load(f)
@@ -24,7 +79,6 @@ def assess_risk(variants, drug):
         return unknown_result()
 
     gene = rule["gene"]
-
     variant = next((v for v in variants if v.get("gene") == gene), None)
 
     phenotype = "Unknown"
@@ -34,21 +88,10 @@ def assess_risk(variants, drug):
         star = variant.get("star")
         gt = variant.get("gt")
 
-        # -----------------------------
-        # 1️⃣ Prefer STAR allele logic
-        # -----------------------------
         if star:
-            diplotype = star
-
-            # Normalize "*2" → "*1/*2"
-            if "/" not in diplotype:
-                diplotype = f"*1/{diplotype}"
-
+            diplotype = star if "/" in star else f"*1/{star}"
             phenotype = rule.get(diplotype, "Unknown")
 
-        # -----------------------------
-        # 2️⃣ Fallback: infer from GT
-        # -----------------------------
         if phenotype == "Unknown" and gt:
             if gt == "1/1":
                 phenotype = "PM"
@@ -58,23 +101,22 @@ def assess_risk(variants, drug):
                 phenotype = "NM"
 
     risk_map = {
-        "PM": ("Toxic", "critical", 0.9),
-        "IM": ("Adjust Dosage", "moderate", 0.7),
-        "NM": ("Safe", "none", 0.9)
+        "PM": ("High Risk", "critical", 0.9),
+        "IM": ("Moderate Risk", "moderate", 0.7),
+        "NM": ("Low Risk", "none", 0.95)
     }
 
     label, severity, confidence = risk_map.get(
         phenotype, ("Unknown", "low", 0.4)
     )
 
-    note = "Refer CPIC guideline"
-    alternatives = []
+    guidance = THERAPY_GUIDANCE.get(drug, {}).get(phenotype, {})
 
-    if label == "Toxic":
-        note = "Avoid drug; consider alternatives"
-        alternatives = ALTERNATIVES.get(drug, [])
-    elif label == "Adjust Dosage":
-        note = "Dose adjustment recommended"
+    recommended_action = (
+        "Avoid drug" if phenotype == "PM"
+        else "Adjust dosage" if phenotype == "IM"
+        else "Safe to prescribe"
+    )
 
     return {
         "risk_assessment": {
@@ -89,9 +131,12 @@ def assess_risk(variants, drug):
             "detected_variants": [variant] if variant else []
         },
         "clinical_recommendation": {
-            "action": label,
-            "note": note,
-            "alternative_drugs": alternatives
+            "recommended_action": recommended_action,
+            "recommended_dosage": guidance.get("dosage", "N/A"),
+            "alternative_drugs": guidance.get("alternatives", []),
+            "symptoms_if_taken": guidance.get("symptoms", []),
+            "actions_if_taken": guidance.get("actions", []),
+            "guideline": "CPIC pharmacogenomics guideline"
         }
     }
 
@@ -105,8 +150,11 @@ def unknown_result():
         },
         "pharmacogenomic_profile": {},
         "clinical_recommendation": {
-            "action": "Unknown",
-            "note": "Insufficient genetic data",
-            "alternative_drugs": []
+            "recommended_action": "Insufficient data",
+            "recommended_dosage": "Cannot determine",
+            "alternative_drugs": [],
+            "symptoms_if_taken": [],
+            "actions_if_taken": [],
+            "guideline": "N/A"
         }
     }

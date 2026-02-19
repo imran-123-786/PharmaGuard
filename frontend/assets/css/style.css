@@ -477,11 +477,29 @@ pre {
   flex: 2;
 }
 
-/* Pie chart smaller */
-.chart-box.pie {
-  flex: 1;
-  max-width: 300px;
+/* Charts container: 50% - 50% */
+.charts-row {
+  display: flex;
+  width: 100%;
+  gap: 20px;
 }
+
+/* Each chart box equal size */
+.chart-box {
+  flex: 1;                 /* 🔥 Equal width */
+  width: 50%;
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* Canvas fills chart box */
+.chart-box canvas {
+  width: 100% !important;
+  height: 320px !important;
+}
+
 
 /* Ensure canvas scales properly */
 .chart-box canvas {
@@ -523,3 +541,75 @@ pre {
   color: #842029;
   border-left: 6px solid #dc3545;
 }
+/* Unknown risk (grey) */
+.risk-box.unknown {
+  background: #f1f3f5;
+  color: #495057;
+  border-left: 6px solid #adb5bd;
+}
+
+.recommend-unknown {
+  background: #f1f3f5;
+  color: #495057;
+  border-left: 6px solid #adb5bd;
+}
+.json-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ===============================
+   Copy to Clipboard Button
+   =============================== */
+.copy-btn {
+  background-color: #e3f2fd;
+  border: 1px solid #90caf9;
+  color: #0d47a1;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 0.25s ease, background-color 0.25s ease;
+}
+
+.copy-btn:hover {
+  opacity: 0.6;              /* DIM EFFECT */
+  background-color: #bbdefb;
+}
+
+/* ===============================
+   Download Button Hover
+   =============================== */
+.download-btn {
+  transition: opacity 0.25s ease;
+}
+
+.download-btn:hover {
+  opacity: 0.75;
+}
+
+/* ================= CHART LAYOUT FIX ================= */
+
+.chart-container.split {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.chart-box.half {
+  width: 50%;
+  text-align: center;
+}
+
+.chart-box.half canvas {
+  width: 100% !important;
+  height: 380px !important;   /* ⬅ Bigger pie chart */
+}
+
+.chart-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+

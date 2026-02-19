@@ -12,27 +12,60 @@ window.analyze = async function () {
   const drug = document.getElementById("drug").value;
   const language = document.getElementById("language").value;
 
+  // ================================
+  // 🔹 FILE PRESENCE CHECK
+  // ================================
   if (!file) {
     alert("Please upload a VCF file");
     return;
   }
 
-  // 🧠 Update top cards immediately (UX polish)
+  // ================================
+  // 🔹 FILE TYPE VALIDATION (.vcf)
+  // ================================
+  const fileName = file.name.toLowerCase();
+  if (!fileName.endsWith(".vcf")) {
+    alert("❌ Only .vcf format files are supported.");
+    fileInput.value = "";
+    return;
+  }
+
+  // ================================
+  // 🔹 FILE SIZE VALIDATION (5MB)
+  // ================================
+  const MAX_SIZE_MB = 5;
+  const MAX_SIZE_BYTES = MAX_SIZE_MB * 1024 * 1024;
+
+  if (file.size > MAX_SIZE_BYTES) {
+    alert("❌ File size must be less than 5MB.");
+    fileInput.value = "";
+    return;
+  }
+
+  // ================================
+  // 🔹 UX POLISH – UPDATE CARDS
+  // ================================
   document.getElementById("drugInfo").innerText = drug;
   document.getElementById("geneInfo").innerText = "Analyzing...";
   document.getElementById("riskInfo").innerText = "Analyzing...";
   document.getElementById("confidenceInfo").innerText = "—";
 
+  // ================================
+  // 🔹 PREPARE FORM DATA
+  // ================================
   const formData = new FormData();
   formData.append("file", file);
   formData.append("drug", drug);
   formData.append("language", language);
 
   try {
-    const response = await fetch("http://127.0.0.1:8000/analyze", {
-      method: "POST",
-      body: formData
-    });
+    const response = await fetch(
+      "http://127.0.0.1:8000/analyze",
+      {
+        method: "POST",
+        body: formData
+      }
+    );
 
     if (!response.ok) {
       throw new Error("Backend returned error");
@@ -42,7 +75,9 @@ window.analyze = async function () {
     console.log("Backend response:", data);
 
     // ✅ Render result safely
-    showResult(data);
+    if (typeof showResult === "function") {
+      showResult(data);
+    }
 
   } catch (error) {
     console.error("Analysis failed:", error);
