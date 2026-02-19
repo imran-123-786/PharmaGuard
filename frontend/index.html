@@ -13,43 +13,66 @@
 
 <body>
 
+<!-- ================= LOGIN SECTION ================= -->
+<div id="loginSection" class="login-page">
+  <div class="login-box">
+    <h2>🔐 PharmaGuard Login</h2>
+
+    <input type="email" id="email" placeholder="Email" />
+    <input type="password" id="password" placeholder="Password" />
+
+    <button onclick="login()">Login</button>
+
+    <p class="login-note">Demo Access Credentials</p>
+    <div class="demo-creds">
+      <p><strong>Email:</strong> demo@pharmaguard.ai</p>
+      <p><strong>Password:</strong> pharmaguard123</p>
+    </div>
+  </div>
+</div>
+
+<!-- ================= DASHBOARD SECTION ================= -->
+<div id="dashboardSection" style="display:none;">
+
   <!-- NAVBAR -->
   <nav class="navbar">
-    <div class="nav-left">
-      🧬 <span>PharmaGuard</span>
-    </div>
+    <div class="nav-left">🧬 <span>PharmaGuard</span></div>
     <div class="nav-right">
       Precision Medicine Dashboard
+      <button class="logout-btn" onclick="logout()">Logout</button>
     </div>
   </nav>
 
   <!-- MAIN DASHBOARD -->
   <div class="dashboard">
 
-    <!-- TOP INFO CARDS -->
+    <!-- ================= TOP INFO CARDS (UPDATED) ================= -->
     <div class="info-cards">
-      <div class="info-card">
+
+      <div class="info-card drug-card">
         <h4>Drug Selected</h4>
-        <p><span id="drugInfo" class="value">—</span></p>
+        <p><span id="drugInfo">—</span></p>
       </div>
 
-      <div class="info-card">
+      <div class="info-card gene-card">
         <h4>Primary Gene</h4>
-        <p><span id="geneInfo" class="value">—</span></p>
+        <p><span id="geneInfo">—</span></p>
       </div>
 
-      <div class="info-card">
+      <div class="info-card risk-card" id="riskCard">
         <h4>Risk Level</h4>
-        <p><span id="riskInfo" class="value">—</span></p>
+        <p><span id="riskInfo">—</span></p>
       </div>
 
-      <div class="info-card">
-        <h4>Confidence</h4>
-        <p><span id="confidenceInfo" class="value">—</span></p>
+      <div class="info-card confidence-card">
+        <h4>Risk Percentage</h4>
+        <p><span id="confidenceInfo">—</span></p>
       </div>
+
     </div>
+    <!-- ============================================================= -->
 
-    <!-- ANALYSIS SECTION -->
+    <!-- ANALYSIS PANEL -->
     <div class="panel">
       <h2>Genetic Drug Risk Analysis</h2>
 
@@ -86,7 +109,7 @@
       <button onclick="analyze()">Run Analysis</button>
     </div>
 
-    <!-- RESULT SECTION -->
+    <!-- RESULT PANEL -->
     <div class="panel hidden" id="resultPanel">
 
       <h2>Risk Assessment</h2>
@@ -95,40 +118,40 @@
         <span id="riskLabel"></span>
         <span id="riskPercent"></span>
       </div>
-
-      <!-- CHATBOT -->
-      <div class="panel-section">
-        <h3>24/7 AI Help Assistant</h3>
-        <div class="chatbot-box">
-          <div id="chatHistory" class="chat-history"></div>
-          <div class="chat-input">
-            <input type="text" id="chatMessage" placeholder="Ask about your result..." />
-            <button onclick="sendChat()">Send</button>
-          </div>
-        </div>
+         
+      <!-- ALTERNATIVE DRUGS -->
+      <div class="panel-section" id="altDrugSection" style="display:none;">
+        <h3>Alternative Drug Recommendations</h3>
+        <table class="alt-drug-table">
+          <thead>
+            <tr>
+              <th>Drug</th>
+              <th>Risk Level</th>
+              <th>Recommendation</th>
+            </tr>
+          </thead>
+          <tbody id="altDrugTableBody"></tbody>
+        </table>
+        <p class="disclaimer">⚠ Decision-support only. Consult clinician.</p>
       </div>
 
-      <!-- RISK VISUALIZATION -->
-      <div class="panel-section">
-        <h3>Risk Visualization</h3>
-        <div class="chart-container">
-          <div class="chart-box">
-            <canvas id="riskBarChart"></canvas>
-          </div>
-          <div class="chart-box small">
-            <canvas id="riskPieChart"></canvas>
-          </div>
-        </div>
-      </div>
+      <!-- RISK CHARTS -->
+        <div class="panel-section">
+  <h3>Risk Visualization</h3>
 
-      <!-- DOWNLOAD -->
-      <div class="panel-section">
-        <button class="download-btn" onclick="downloadReport()">
-          📄 Download Analysis Report
-        </button>
-      </div>
+  <div class="chart-container">
+    <div class="chart-box bar">
+      <canvas id="riskBarChart"></canvas>
+    </div>
 
-      <!-- DETECTED GENES -->
+    <div class="chart-box pie">
+      <canvas id="riskPieChart"></canvas>
+    </div>
+  </div>
+</div>
+
+
+      <!-- GENES -->
       <div class="panel-section">
         <h3>Detected Pharmacogenomic Genes</h3>
         <ul id="geneList" class="gene-list">
@@ -141,28 +164,43 @@
         </ul>
       </div>
 
+      <!-- EXPLANATION -->
       <div class="panel-section">
         <h3>Explainable AI Summary</h3>
         <p id="explanation"></p>
       </div>
 
+      <!-- TRACE -->
       <div class="panel-section">
         <h3>Decision Trace</h3>
         <ul id="trace"></ul>
       </div>
 
+      <!-- JSON -->
       <div class="panel-section">
         <h3>Structured JSON Output</h3>
         <pre id="jsonOutput"></pre>
       </div>
 
+      <!-- CHATBOT -->
+      <div class="panel-section">
+        <h3>24/7 AI Help Assistant</h3>
+        <div class="chatbot-box">
+          <div id="chatHistory"></div>
+          <input type="text" id="chatMessage" placeholder="Ask..." />
+          <button onclick="sendChat()">Send</button>
+        </div>
+      </div>
+
     </div>
   </div>
+</div>
 
-  <!-- JS FILES -->
-  <script src="assets/js/chatbot.js"></script>
-  <script src="assets/js/analyze.js"></script>
-  <script src="assets/js/visualization.js"></script>
+<!-- ================= SCRIPTS ================= -->
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/chatbot.js"></script>
+<script src="assets/js/analyze.js"></script>
+<script src="assets/js/visualization.js"></script>
 
 </body>
 </html>

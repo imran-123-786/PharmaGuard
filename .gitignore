@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.pyc
+
+# VS Code history
+.history/
+
+# Frontend junk
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env

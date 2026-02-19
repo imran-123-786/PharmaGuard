@@ -1,296 +1,20 @@
-body {
-  font-family: Arial, sans-serif;
-  background: #f4f6f8;
-  padding: 20px;
-}
-
-.container {
-  max-width: 400px;
-  margin: auto;
-}
-
-.center {
-  text-align: center;
-}
-
-input, select, button {
-  width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-}
-
-button {
-  background: #007bff;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-.card {
-  background: white;
-  padding: 15px;
-  margin: 10px 0;
-}
-
-.safe { color: green; }
-.warning { color: orange; }
-.danger { color: red; }
-body {
-  margin: 0;
-  font-family: "Segoe UI", sans-serif;
-  background: #f4f9fd;
-  color: #333;
-}
-
-header {
-  background: #e6f2fb;
-  padding: 20px;
-  text-align: center;
-  border-bottom: 1px solid #cfe6f7;
-}
-
-header h1 {
-  margin: 0;
-  color: #0b5ed7;
-}
-
-.container {
-  max-width: 900px;
-  margin: 30px auto;
-  padding: 0 20px;
-}
-
-.card {
-  background: white;
-  padding: 25px;
-  margin-bottom: 25px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-}
-
-h2 {
-  margin-top: 0;
-  color: #0b5ed7;
-}
-
-label {
-  display: block;
-  margin-top: 15px;
-  font-weight: 600;
-}
-
-input, select {
-  width: 100%;
-  padding: 10px;
-  margin-top: 6px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-button {
-  margin-top: 20px;
-  padding: 12px;
-  width: 100%;
-  background: #0b5ed7;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #084298;
-}
-
-.section {
-  margin-top: 20px;
-}
-
-/* RISK BOX */
-.risk-box {
-  padding: 15px;
-  border-radius: 6px;
-  font-size: 18px;
-  font-weight: bold;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
-}
-
-.safe {
-  background: #e6f7ec;
-  color: #1e7e34;
-}
-
-.warning {
-  background: #fff3cd;
-  color: #856404;
-}
-
-.danger {
-  background: #f8d7da;
-  color: #842029;
-}
-
-pre {
-  background: #f4f9fd;
-  padding: 15px;
-  border-radius: 6px;
-  max-height: 300px;
-  overflow: auto;
-}
-/* Global Reset */
+/* =========================
+   GLOBAL RESET & BASE
+========================= */
 * {
   box-sizing: border-box;
   font-family: "Segoe UI", Arial, sans-serif;
 }
 
-/* Page Background */
 body {
   margin: 0;
-  background: linear-gradient(180deg, #eef6ff, #ffffff);
-  color: #2c2c2c;
-}
-
-/* Header */
-header {
-  background: #e6f2ff;
-  padding: 25px;
-  text-align: center;
-  border-bottom: 1px solid #cfe3ff;
-}
-
-header h1 {
-  margin: 0;
-  color: #0b5ed7;
-  font-size: 32px;
-}
-
-header p {
-  margin-top: 8px;
-  color: #5a7dbf;
-  font-size: 15px;
-}
-
-/* Main Container */
-.container {
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 0 20px;
-}
-
-/* Cards */
-.card {
-  background: #ffffff;
-  border-radius: 14px;
-  padding: 30px;
-  margin-bottom: 30px;
-  box-shadow: 0 10px 28px rgba(13, 110, 253, 0.08);
-}
-
-/* Headings */
-h2 {
-  margin-top: 0;
-  color: #0b5ed7;
-}
-
-h3 {
-  color: #0b5ed7;
-  margin-bottom: 10px;
-}
-
-/* Form Elements */
-label {
-  display: block;
-  margin-top: 18px;
-  font-weight: 600;
-}
-
-input[type="file"],
-select {
-  width: 100%;
-  padding: 12px;
-  margin-top: 6px;
-  border-radius: 8px;
-  border: 1px solid #cfe3ff;
-  background: #f8fbff;
-}
-
-input:focus,
-select:focus {
-  outline: none;
-  border-color: #0b5ed7;
-}
-
-/* Button */
-button {
-  margin-top: 25px;
-  width: 100%;
-  padding: 14px;
-  background: linear-gradient(90deg, #0b5ed7, #4dabf7);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-button:hover {
-  opacity: 0.95;
-}
-
-/* Sections */
-.section {
-  margin-top: 25px;
-}
-
-/* Risk Box */
-.risk-box {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 18px;
-  border-radius: 10px;
-  font-size: 18px;
-  font-weight: bold;
-  margin: 20px 0;
-}
-
-/* Risk Colors */
-.safe {
-  background: #e8f7ee;
-  color: #1e7e34;
-}
-
-.warning {
-  background: #fff6e5;
-  color: #b26a00;
-}
-
-.danger {
-  background: #fdecea;
-  color: #b02a37;
-}
-
-/* JSON Output */
-pre {
-  background: #f4f9ff;
-  padding: 18px;
-  border-radius: 10px;
-  max-height: 280px;
-  overflow-y: auto;
-  font-size: 13px;
-}
-body {
-  margin: 0;
-  font-family: "Segoe UI", sans-serif;
   background: linear-gradient(180deg, #eaf2f8, #f6f9fc);
   color: #2c2c2c;
 }
 
-/* NAVBAR */
+/* =========================
+   NAVBAR
+========================= */
 .navbar {
   background: #1f4fd8;
   color: white;
@@ -305,14 +29,18 @@ body {
   font-size: 18px;
 }
 
-/* DASHBOARD */
+/* =========================
+   DASHBOARD LAYOUT
+========================= */
 .dashboard {
   padding: 25px;
   max-width: 1200px;
   margin: auto;
 }
 
-/* INFO CARDS */
+/* =========================
+   INFO CARDS
+========================= */
 .info-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -333,14 +61,32 @@ body {
   color: #6c757d;
 }
 
-.info-card p {
-  margin: 6px 0 0;
-  font-size: 18px;
-  font-weight: 600;
+.info-card .value {
+  margin-top: 6px;
+  font-size: 22px;
+  font-weight: 700;
   color: #1f4fd8;
 }
 
-/* PANELS */
+/* Risk color variants */
+.info-card.safe {
+  background: #e6f7ef;
+  border-left: 6px solid #28a745;
+}
+
+.info-card.warning {
+  background: #fff4e5;
+  border-left: 6px solid #ffc107;
+}
+
+.info-card.danger {
+  background: #fdecea;
+  border-left: 6px solid #dc3545;
+}
+
+/* =========================
+   PANELS
+========================= */
 .panel {
   background: white;
   border-radius: 14px;
@@ -354,11 +100,21 @@ body {
   color: #1f4fd8;
 }
 
+.panel-section {
+  margin-top: 20px;
+}
+
+.panel-section h3 {
+  color: #1f4fd8;
+}
+
 .hidden {
   display: none;
 }
 
-/* FORM */
+/* =========================
+   FORMS
+========================= */
 .form-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -371,7 +127,8 @@ label {
   font-weight: 600;
 }
 
-input, select {
+input,
+select {
   width: 100%;
   padding: 10px;
   margin-top: 6px;
@@ -379,7 +136,15 @@ input, select {
   border: 1px solid #ced4da;
 }
 
-/* BUTTON */
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #1f4fd8;
+}
+
+/* =========================
+   BUTTONS
+========================= */
 button {
   padding: 12px 22px;
   background: #1f4fd8;
@@ -394,7 +159,26 @@ button:hover {
   background: #163bb5;
 }
 
-/* RISK BOX */
+.download-btn {
+  background: linear-gradient(90deg, #1f4fd8, #4da3ff);
+  font-weight: 600;
+}
+
+.download-btn:hover {
+  opacity: 0.9;
+}
+
+.logout-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* =========================
+   RISK BOX
+========================= */
 .risk-box {
   padding: 18px;
   border-radius: 10px;
@@ -420,24 +204,9 @@ button:hover {
   color: #842029;
 }
 
-/* PANEL SECTIONS */
-.panel-section {
-  margin-top: 20px;
-}
-
-.panel-section h3 {
-  color: #1f4fd8;
-}
-
-/* JSON */
-pre {
-  background: #f1f4f8;
-  padding: 16px;
-  border-radius: 10px;
-  max-height: 260px;
-  overflow: auto;
-  font-size: 13px;
-}
+/* =========================
+   GENE LIST
+========================= */
 .gene-list {
   list-style: none;
   padding: 0;
@@ -461,6 +230,10 @@ pre {
   background: #fdecea;
   color: #842029;
 }
+
+/* =========================
+   CHATBOT
+========================= */
 .chatbot-box {
   border: 1px solid #dee2e6;
   border-radius: 10px;
@@ -484,7 +257,6 @@ pre {
 
 .user-msg {
   background: #dbeafe;
-  align-self: flex-end;
   text-align: right;
 }
 
@@ -500,74 +272,254 @@ pre {
 
 .chat-input input {
   flex: 1;
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid #ced4da;
 }
 
 .chat-input button {
   padding: 8px 14px;
-  border-radius: 6px;
-  border: none;
-  background: #1f4fd8;
-  color: white;
-  cursor: pointer;
-}
-.chart-container {
-  display: flex;
-  gap: 30px;
-  flex-wrap: wrap;
-  align-items: center;
 }
 
-.chart-box {
-  width: 360px;
-  height: 260px;
+/* =========================
+   TABLE (ALTERNATIVE DRUGS)
+========================= */
+.alt-drug-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.alt-drug-table th,
+.alt-drug-table td {
+  padding: 10px;
+  border: 1px solid #dee2e6;
+  text-align: center;
+}
+
+.alt-drug-table th {
+  background: #eaf2f8;
+}
+
+.alt-safe { color: #1e7e34; font-weight: 600; }
+.alt-warning { color: #856404; font-weight: 600; }
+.alt-danger { color: #842029; font-weight: 600; }
+
+.disclaimer {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #6c757d;
+}
+
+/* =========================
+   JSON OUTPUT
+========================= */
+pre {
+  background: #f1f4f8;
+  padding: 16px;
+  border-radius: 10px;
+  max-height: 260px;
+  overflow: auto;
+  font-size: 13px;
+}
+
+/* =========================
+   LOGIN PAGE
+========================= */
+.login-body {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-container {
+  background: white;
+  padding: 30px;
+  width: 320px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.login-container h2 {
+  color: #1f4fd8;
+}
+
+.login-sub {
+  font-size: 13px;
+  color: #6c757d;
+  margin-bottom: 20px;
+}
+
+.login-note {
+  font-size: 12px;
+  color: #6c757d;
+  margin-top: 10px;
+}
+
+/* =========================
+   🔥 FORCE SMALL PIE CHART
+   (KEEP AT VERY BOTTOM)
+========================= */
+#riskPieChart {
+  width: 160px !important;
+  height: 160px !important;
+  max-width: 160px !important;
+  max-height: 160px !important;
+}
+
+#riskBarChart {
+  width: 100% !important;
+  height: 280px !important;
 }
 
 .chart-box.small {
-  width: 220px;   /* 🔥 Pie chart width */
-  height: 220px;  /* 🔥 Pie chart height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 180px;
+  height: 180px;
+  margin: auto;
+}
+/* ===============================
+   INFO CARD COLOR THEMING
+================================ */
+
+/* Drug Selected */
+.drug-card {
+  border-left: 6px solid #0097a7;
+  background: linear-gradient(135deg, #e3f2fd, );
+  border-left: 6px solid #0097a7;
+  border-left: 6px solid ;
 }
 
-.chart-box canvas {
-  width: 100% !important;
-  height: 100% !important;
+/* Primary Gene */
+.gene-card {
+  background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+  border-left: 6px solid  #0097a7;
 }
-/* =========================
-   TOP INFO CARD COLORS
+
+/* Confidence */
+.confidence-card {
+  background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+  border-left: 6px solid #0097a7;
+}
+
+/* Risk Level – default */
+.risk-card {
+  background: #f5f5f5;
+  border-left: 6px solid #9e9e9e;
+}
+  /* =========================
+   CONFIDENCE & RISK SAME COLOR
 ========================= */
 
-.info-card.safe {
-  background: #e6f7ef;
-  border-left: 6px solid #28a745;
+/* Confidence card base color */
+.confidence-card {
+  background: #eef4ff;
+  border-left: 6px solid #1f4fd8;
 }
 
-.info-card.warning {
+/* Risk card uses SAME styling as confidence */
+.risk-card {
+  background: #eef4ff;
+  border-left: 6px solid #1f4fd8;
+}
+
+/* Optional: text color consistency */
+.confidence-card .value,
+.risk-card .value {
+  color: #1f4fd8;
+  font-weight: 700;
+}
+
+/* Risk dynamic colors */
+.risk-card.safe {
+  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+  border-left-color: #2e7d32;
+}
+/* =========================
+   DRUG & PRIMARY GENE SAME COLOR
+========================= */
+
+/* Shared color for Drug + Gene */
+.drug-card,
+.gene-card {
+  background: #f0f9ff;
+  border-left: 6px solid #0d6efd;
+}
+
+/* Text styling consistency */
+.drug-card .value,
+.gene-card .value {
+  color: #0d6efd;
+  font-weight: 700;
+}
+
+.risk-card.warning {
+  background: linear-gradient(135deg, #fffde7, #fff9c4);
+  border-left-color: #f9a825;
+}
+
+.risk-card.danger {
+  background: linear-gradient(135deg, #ffebee, #ffcdd2);
+  border-left-color: #c62828;
+}
+/* 📊 Chart layout */
+.chart-container {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+/* Bar chart takes more space */
+.chart-box.bar {
+  flex: 2;
+}
+
+/* Pie chart smaller */
+.chart-box.pie {
+  flex: 1;
+  max-width: 300px;
+}
+
+/* Ensure canvas scales properly */
+.chart-box canvas {
+  width: 100% !important;
+  height: auto !important;
+}
+
+/* Mobile responsive */
+@media (max-width: 900px) {
+  .chart-container {
+    flex-direction: column;
+  }
+
+  .chart-box.pie {
+    max-width: 100%;
+  }
+}
+.recommendation-box {
+  padding: 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.recommend-safe {
+  background: #e6f7ef;
+  color: #1e7e34;
+  border-left: 6px solid #1e7e34;
+}
+
+.recommend-warning {
   background: #fff4e5;
+  color: #856404;
   border-left: 6px solid #ffc107;
 }
 
-.info-card.danger {
+.recommend-danger {
   background: #fdecea;
+  color: #842029;
   border-left: 6px solid #dc3545;
-}
-
-.info-card .value {
-  font-size: 22px;
-  font-weight: 700;
-}
-.download-btn {
-  background: linear-gradient(90deg, #1f4fd8, #4da3ff);
-  color: white;
-  border: none;
-  padding: 12px 18px;
-  font-size: 15px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.download-btn:hover {
-  opacity: 0.9;
 }

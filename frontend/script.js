@@ -41,7 +41,7 @@ function displayResult(data) {
     data.risk_assessment.risk_label;
 
   document.getElementById("riskPercent").innerText =
-    confidence + "% risk confidence";
+    Risk % + "% risk percentage";
 
   document.getElementById("explanation").innerText =
     data.llm_generated_explanation.summary;
