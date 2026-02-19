@@ -9,6 +9,25 @@
 
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Google Translate -->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+      {
+        pageLanguage: 'en',
+        includedLanguages: 'en,hi,kn,ta,te',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      },
+      'google_translate_element'
+    );
+  }
+</script>
+
+<script
+  type="text/javascript"
+  src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+</script>
 </head>
 
 <body>
@@ -40,6 +59,7 @@
     <div class="nav-right">
       Precision Medicine Dashboard
       <button class="logout-btn" onclick="logout()">Logout</button>
+      <div id="google_translate_element"></div>
     </div>
   </nav>
 
@@ -136,7 +156,22 @@
           <ul id="actionsList"></ul>
         </div>
       </div>
+        <!-- ================= DRUG SENSITIVITY INDEX ================= -->
+<div class="panel-section" id="sensitivitySection">
+  <h3>🧪 Drug Sensitivity Index</h3>
 
+  <div class="sensitivity-box">
+    <div class="sensitivity-label">
+      Genetic Sensitivity Score
+    </div>
+
+    <div class="sensitivity-bar">
+      <div id="sensitivityFill"></div>
+    </div>
+
+    <p id="sensitivityText"></p>
+  </div>
+</div>
       <!-- ================= ALTERNATIVE DRUGS ================= -->
       <div class="panel-section" id="altDrugSection" style="display:none;">
         <h3>Alternative Drug & Dosage Recommendations</h3>

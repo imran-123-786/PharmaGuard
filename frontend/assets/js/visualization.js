@@ -1,10 +1,44 @@
+const TRANSLATIONS = {
+  hi: {
+    Toxic: "खतरनाक",
+    "Adjust Dosage": "खुराक समायोजित करें",
+    Safe: "सुरक्षित",
+    Unknown: "अज्ञात",
+    "Clinical Recommendation": "चिकित्सीय अनुशंसा",
+    "Possible Symptoms": "संभावित लक्षण",
+    "Recommended Actions": "अनुशंसित कार्य"
+  },
+  kn: {
+    Toxic: "ಅಪಾಯಕಾರಿ",
+    "Adjust Dosage": "ಮಾತ್ರೆ ಹೊಂದಿಸಿ",
+    Safe: "ಸುರಕ್ಷಿತ",
+    Unknown: "ಅಜ್ಞಾತ"
+  },
+  ta: {
+    Toxic: "ஆபத்தானது",
+    "Adjust Dosage": "மருந்தளவை மாற்றவும்",
+    Safe: "பாதுகாப்பானது",
+    Unknown: "தெரியாதது"
+  },
+  te: {
+    Toxic: "ప్రమాదకరం",
+    "Adjust Dosage": "మోతాదు సర్దుబాటు చేయండి",
+    Safe: "సురక్షితం",
+    Unknown: "తెలియదు"
+  }
+};
+
+function t(text, lang) {
+  return TRANSLATIONS[lang]?.[text] || text;
+}
+
 let barChart = null;
 let pieChart = null;
 let lastAnalysisResult = null;
 
 window.showResult = function (data) {
   if (!data) return;
-
+const selectedLanguage = document.getElementById("language")?.value || "en";
   document.getElementById("resultPanel").classList.remove("hidden");
 
   // ================= SAFE DATA =================
@@ -32,7 +66,7 @@ window.showResult = function (data) {
   else if (confidence > 70) colorClass = "danger";
   else if (confidence > 40) colorClass = "warning";
 
-  riskLabel.innerText = risk;
+  riskLabel.innerText = t(risk, selectedLanguage);
   riskPercent.innerText = confidence + "%";
   riskBox.className = `risk-box ${colorClass}`;
 
@@ -144,7 +178,97 @@ window.showResult = function (data) {
   } else {
     altDrugSection.style.display = "none";
   }
+      // ================= SYMPTOMS & ACTIONS =================
+const symptomsSection = document.getElementById("symptomsActionsSection");
+const symptomsList = document.getElementById("symptomsList");
+const actionsList = document.getElementById("actionsList");
 
+symptomsList.innerHTML = "";
+actionsList.innerHTML = "";
+   // ================= DRUG SENSITIVITY INDEX =================
+const sensitivityScore =
+  data.clinical_recommendation?.drug_sensitivity_index ?? 40;
+
+const sensitivityFill = document.getElementById("sensitivityFill");
+const sensitivityText = document.getElementById("sensitivityText");
+
+let sensColor = "#28a745";
+let sensLabel = "Low Sensitivity";
+
+if (sensitivityScore > 75) {
+  sensColor = "#dc3545";
+  sensLabel = "High Sensitivity – Toxicity Risk";
+} else if (sensitivityScore > 45) {
+  sensColor = "#ffc107";
+  sensLabel = "Moderate Sensitivity – Dose Adjustment";
+}
+
+sensitivityFill.style.width = sensitivityScore + "%";
+sensitivityFill.style.backgroundColor = sensColor;
+
+sensitivityText.innerText =
+  `${sensitivityScore}% – ${sensLabel}`;
+// Backend-provided data
+let symptoms = rec.symptoms_if_taken || [];
+let actions = rec.actions_if_taken || [];
+
+// ---------- FIXED FALLBACK LOGIC ----------
+if (symptoms.length === 0 && actions.length === 0) {
+
+  if (risk === "Toxic") {
+    symptoms = [
+      "Severe adverse drug reactions",
+      "Drug toxicity",
+      "Life-threatening side effects"
+    ];
+    actions = [
+      "Stop medication immediately",
+      "Seek urgent medical attention",
+      "Switch to genetically safer alternative"
+    ];
+  }
+
+  else if (risk === "Adjust Dosage") {
+    symptoms = [
+      "Increased side effects at standard dose",
+      "Reduced therapeutic response"
+    ];
+    actions = [
+      "Consult physician for dose adjustment",
+      "Monitor drug levels if applicable"
+    ];
+  }
+
+  else if (risk === "Unknown") {
+    symptoms = [
+      "Unpredictable drug response",
+      "Potential adverse effects"
+    ];
+    actions = [
+      "Monitor symptoms closely",
+      "Genetic confirmation recommended before continuation"
+    ];
+  }
+}
+
+// ---------- DISPLAY CONTROL ----------
+if (symptoms.length > 0 || actions.length > 0) {
+  symptomsSection.style.display = "block";
+
+  symptoms.forEach(s => {
+    const li = document.createElement("li");
+    li.innerText = "⚠️ " + s;
+    symptomsList.appendChild(li);
+  });
+
+  actions.forEach(a => {
+    const li = document.createElement("li");
+    li.innerText = "🚑 " + a;
+    actionsList.appendChild(li);
+  });
+} else {
+  symptomsSection.style.display = "none";
+}
   // ================= EXPLANATION =================
   explanation.innerText =
     risk === "Unknown"

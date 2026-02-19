@@ -1,0 +1,38 @@
+{
+  "hi": {
+    "Toxic": "खतरनाक",
+    "Adjust Dosage": "खुराक समायोजित करें",
+    "Safe": "सुरक्षित",
+    "Unknown": "अज्ञात",
+    "Stop medication immediately": "दवा तुरंत बंद करें",
+    "Consult physician": "डॉक्टर से परामर्श करें",
+    "Monitor closely": "नज़दीकी निगरानी करें"
+  },
+  "kn": {
+    "Toxic": "ಅಪಾಯಕಾರಿ",
+    "Adjust Dosage": "ಮಾತ್ರೆ ಹೊಂದಿಸಿ",
+    "Safe": "ಸುರಕ್ಷಿತ",
+    "Unknown": "ಅಜ್ಞಾತ",
+    "Stop medication immediately": "ತಕ್ಷಣ ಔಷಧ ನಿಲ್ಲಿಸಿ",
+    "Consult physician": "ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ",
+    "Monitor closely": "ನಿರಂತರ ಮೇಲ್ವಿಚಾರಣೆ ಮಾಡಿ"
+  },
+  "ta": {
+    "Toxic": "ஆபத்தானது",
+    "Adjust Dosage": "மருந்தளவை மாற்றவும்",
+    "Safe": "பாதுகாப்பானது",
+    "Unknown": "தெரியாதது",
+    "Stop medication immediately": "மருந்தை உடனே நிறுத்தவும்",
+    "Consult physician": "மருத்துவரை அணுகவும்",
+    "Monitor closely": "கவனமாக கண்காணிக்கவும்"
+  },
+  "te": {
+    "Toxic": "ప్రమాదకరం",
+    "Adjust Dosage": "మోతాదు సర్దుబాటు చేయండి",
+    "Safe": "సురక్షితం",
+    "Unknown": "తెలియదు",
+    "Stop medication immediately": "తక్షణమే మందు ఆపండి",
+    "Consult physician": "వైద్యుడిని సంప్రదించండి",
+    "Monitor closely": "జాగ్రత్తగా పరిశీలించండి"
+  }
+}

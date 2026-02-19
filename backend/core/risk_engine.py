@@ -69,6 +69,8 @@ THERAPY_GUIDANCE = {
 }
 
 # -------------------------------------------------
+# Core risk assessment logic
+# -------------------------------------------------
 def assess_risk(variants, drug):
     with open(RULES_FILE) as f:
         rules = json.load(f)
@@ -100,23 +102,43 @@ def assess_risk(variants, drug):
             elif gt == "0/0":
                 phenotype = "NM"
 
+    # -------------------------------
+    # Normalized risk labels (UI-safe)
+    # -------------------------------
     risk_map = {
-        "PM": ("High Risk", "critical", 0.9),
-        "IM": ("Moderate Risk", "moderate", 0.7),
-        "NM": ("Low Risk", "none", 0.95)
+        "PM": ("Toxic", "critical", 0.9),
+        "IM": ("Adjust Dosage", "moderate", 0.7),
+        "NM": ("Safe", "none", 0.95)
     }
 
     label, severity, confidence = risk_map.get(
         phenotype, ("Unknown", "low", 0.4)
     )
 
+    # -------------------------------
+    # Drug Sensitivity Index
+    # -------------------------------
+    sensitivity_map = {
+        "PM": 90,
+        "IM": 65,
+        "NM": 25,
+        "Unknown": 40
+    }
+    sensitivity_score = sensitivity_map.get(phenotype, 40)
+
+    # -------------------------------
+    # Therapy guidance
+    # -------------------------------
     guidance = THERAPY_GUIDANCE.get(drug, {}).get(phenotype, {})
 
-    recommended_action = (
-        "Avoid drug" if phenotype == "PM"
-        else "Adjust dosage" if phenotype == "IM"
-        else "Safe to prescribe"
-    )
+    if phenotype == "PM":
+        recommended_action = "Avoid drug"
+    elif phenotype == "IM":
+        recommended_action = "Adjust dosage"
+    elif phenotype == "NM":
+        recommended_action = "Safe to prescribe"
+    else:
+        recommended_action = "Insufficient data"
 
     return {
         "risk_assessment": {
@@ -136,11 +158,12 @@ def assess_risk(variants, drug):
             "alternative_drugs": guidance.get("alternatives", []),
             "symptoms_if_taken": guidance.get("symptoms", []),
             "actions_if_taken": guidance.get("actions", []),
+            "drug_sensitivity_index": sensitivity_score,
             "guideline": "CPIC pharmacogenomics guideline"
         }
     }
 
-
+# -------------------------------------------------
 def unknown_result():
     return {
         "risk_assessment": {
@@ -155,6 +178,7 @@ def unknown_result():
             "alternative_drugs": [],
             "symptoms_if_taken": [],
             "actions_if_taken": [],
+            "drug_sensitivity_index": 40,
             "guideline": "N/A"
         }
     }

@@ -1,9 +1,38 @@
+import json
+import os
+
+# ================= LANGUAGE MAP FILE =================
+LANG_FILE = os.path.join(
+    os.path.dirname(os.path.dirname(__file__)),
+    "data",
+    "language_map.json"
+)
+
+# ================= TRANSLATION HELPER =================
+def translate_text(text, language):
+    if language == "en":
+        return text
+
+    try:
+        with open(LANG_FILE, "r", encoding="utf-8") as f:
+            lang_map = json.load(f)
+
+        mapping = lang_map.get(language, {})
+        for eng, local in mapping.items():
+            text = text.replace(eng, local)
+
+        return text
+    except Exception:
+        return text
+
+
+# ================= MAIN EXPLAINER =================
 def generate_explanation(variants, drug, risk_result, language="en"):
-    risk = risk_result["risk_assessment"]["risk_label"]
+    risk_label = risk_result["risk_assessment"]["risk_label"]
     gene = risk_result["pharmacogenomic_profile"].get("primary_gene", "Unknown")
     phenotype = risk_result["pharmacogenomic_profile"].get("phenotype", "Unknown")
 
-    # ---------- ENGLISH ----------
+    # ---------- DETAILED ENGLISH EXPLANATION ----------
     explanation_en = (
         f"The analysis of your genetic data focused on the gene {gene}, "
         f"which plays a role in how your body processes the drug {drug}. "
@@ -19,31 +48,23 @@ def generate_explanation(variants, drug, risk_result, language="en"):
     else:
         explanation_en += (
             f"Your genetic profile indicates a {phenotype} metabolizer status, "
-            f"which results in a '{risk}' risk classification for this drug."
+            f"which results in a '{risk_label}' risk classification for this drug."
         )
 
-    # ---------- SIMPLE MULTI-LANGUAGE SUPPORT ----------
-    if language == "hi":
-        return {
-            "summary": f"दवा {drug} के लिए आपका जोखिम स्तर '{risk}' है। यह परिणाम आपके जीन {gene} के विश्लेषण पर आधारित है।"
-        }
+    # ---------- SIMPLE SUMMARY (YOUR REQUEST) ----------
+    summary = f"The drug {drug} has a {risk_label} risk based on your genetic profile."
+    summary = translate_text(summary, language)
 
-    if language == "kn":
-        return {
-            "summary": f"{drug} ಔಷಧಿಗೆ ನಿಮ್ಮ ಅಪಾಯ ಮಟ್ಟ '{risk}' ಆಗಿದೆ."
-        }
+    # ---------- TRANSLATE FULL EXPLANATION ----------
+    explanation_final = translate_text(explanation_en, language)
 
-    if language == "ta":
-        return {
-            "summary": f"{drug} மருந்திற்கு உங்கள் அபாய நிலை '{risk}' ஆகும்."
-        }
-
-    if language == "te":
-        return {
-            "summary": f"{drug} మందుకు మీ ప్రమాద స్థాయి '{risk}'."
-        }
-
-    # ---------- DEFAULT (ENGLISH) ----------
+    # ---------- RETURN STRUCTURED OUTPUT ----------
     return {
-        "summary": explanation_en
+        "summary": summary,                 # short & clean (frontend friendly)
+        "detailed_explanation": explanation_final,  # long explainable AI text
+        "language": language,
+        "drug": drug,
+        "gene": gene,
+        "phenotype": phenotype,
+        "risk": risk_label
     }
