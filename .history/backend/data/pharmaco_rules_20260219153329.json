@@ -1,0 +1,38 @@
+{
+  "CODEINE": {
+    "gene": "CYP2D6",
+    "*4/*4": "PM",
+    "*1/*4": "IM",
+    "*1/*1": "NM"
+  },
+  "CLOPIDOGREL": {
+    "gene": "CYP2C19",
+    "*2/*2": "PM",
+    "*1/*2": "IM",
+    "*1/*1": "NM"
+  },
+  "WARFARIN": {
+    "gene": "CYP2C9",
+    "*3/*3": "PM",
+    "*1/*3": "IM",
+    "*1/*1": "NM"
+  },
+  "SIMVASTATIN": {
+    "gene": "SLCO1B1",
+    "*5/*5": "PM",
+    "*1/*5": "IM",
+    "*1/*1": "NM"
+  },
+  "AZATHIOPRINE": {
+    "gene": "TPMT",
+    "*3/*3": "PM",
+    "*1/*3": "IM",
+    "*1/*1": "NM"
+  },
+  "FLUOROURACIL": {
+    "gene": "DPYD",
+    "*2A/*2A": "PM",
+    "*1/*2A": "IM",
+    "*1/*1": "NM"
+  }
+}

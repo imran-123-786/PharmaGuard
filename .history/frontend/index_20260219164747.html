@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PharmaGuard Dashboard</title>
+
+  <!-- ✅ Correct CSS path -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-left">
+      🧬 <span>PharmaGuard</span>
+    </div>
+    <div class="nav-right">
+      Precision Medicine Dashboard
+    </div>
+  </nav>
+
+  <!-- MAIN DASHBOARD -->
+  <div class="dashboard">
+
+    <!-- TOP INFO CARDS -->
+    <div class="info-cards">
+      <div class="info-card">
+        <h4>Drug Selected</h4>
+        <p id="drugInfo">—</p>
+      </div>
+      <div class="info-card">
+        <h4>Primary Gene</h4>
+        <p id="geneInfo">—</p>
+      </div>
+      <div class="info-card">
+        <h4>Risk Level</h4>
+        <p id="riskInfo">—</p>
+      </div>
+      <div class="info-card">
+        <h4>Confidence</h4>
+        <p id="confidenceInfo">—</p>
+      </div>
+    </div>
+
+    <!-- ANALYSIS SECTION -->
+    <div class="panel">
+      <h2>Genetic Drug Risk Analysis</h2>
+
+      <div class="form-grid">
+
+        <div>
+          <label>Upload VCF File</label>
+          <input type="file" id="vcfFile" />
+        </div>
+
+        <div>
+          <label>Select Drug</label>
+          <!-- ✅ ALL 6 DRUGS (PROBLEM STATEMENT) -->
+          <select id="drug">
+            <option value="CODEINE">CODEINE (CYP2D6)</option>
+            <option value="WARFARIN">WARFARIN (CYP2C9)</option>
+            <option value="CLOPIDOGREL">CLOPIDOGREL (CYP2C19)</option>
+            <option value="SIMVASTATIN">SIMVASTATIN (SLCO1B1)</option>
+            <option value="AZATHIOPRINE">AZATHIOPRINE (TPMT)</option>
+            <option value="FLUOROURACIL">FLUOROURACIL (DPYD)</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Language</label>
+          <!-- ✅ 5 LANGUAGES -->
+          <select id="language">
+            <option value="en">English</option>
+            <option value="hi">Hindi</option>
+            <option value="kn">Kannada</option>
+            <option value="ta">Tamil</option>
+            <option value="te">Telugu</option>
+          </select>
+        </div>
+
+      </div>
+
+      <!-- ✅ THIS BUTTON NOW WORKS -->
+      <button onclick="analyze()">Run Analysis</button>
+    </div>
+
+    <!-- RESULT SECTION -->
+<div class="panel hidden" id="resultPanel">
+
+  <h2>Risk Assessment</h2>
+
+  <div id="riskBox" class="risk-box">
+    <span id="riskLabel"></span>
+    <span id="riskPercent"></span>
+  </div>
+<!-- 🔹 RISK VISUALIZATION -->
+<div class="panel-section">
+  <h3>Risk Visualization</h3>
+
+  <div style="display: flex; gap: 30px; flex-wrap: wrap;">
+    <canvas id="riskBarChart" width="300" height="200"></canvas>
+    <canvas id="riskPieChart" width="300" height="200"></canvas>
+  </div>
+</div>
+
+  <!-- 🔹 DETECTED GENES SECTION -->
+  <div class="panel-section">
+    <h3>Detected Pharmacogenomic Genes</h3>
+    <ul id="geneList" class="gene-list">
+      <li id="gene-CYP2D6">CYP2D6</li>
+      <li id="gene-CYP2C19">CYP2C19</li>
+      <li id="gene-CYP2C9">CYP2C9</li>
+      <li id="gene-SLCO1B1">SLCO1B1</li>
+      <li id="gene-TPMT">TPMT</li>
+      <li id="gene-DPYD">DPYD</li>
+    </ul>
+  </div>
+
+  <div class="panel-section">
+    <h3>Explainable AI Summary</h3>
+    <p id="explanation"></p>
+  </div>
+
+  <div class="panel-section">
+    <h3>Decision Trace</h3>
+    <ul id="trace"></ul>
+  </div>
+
+  <div class="panel-section">
+    <h3>Structured JSON Output</h3>
+    <pre id="jsonOutput"></pre>
+  </div>
+
+</div>
+
+
+  <!-- ✅ CORRECT JS FILES (NO script.js) -->
+  <script src="assets/js/analyze.js"></script>
+  <script src="assets/js/visualization.js"></script>
+
+</body>
+</html>

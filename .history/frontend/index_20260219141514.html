@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PharmaGuard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <h1>PharmaGuard</h1>
+    <p>Explainable Pharmacogenomic Risk Prediction</p>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <div class="container">
+
+    <!-- ANALYSIS CARD -->
+    <div class="card">
+      <h2>Genetic Drug Risk Analysis</h2>
+
+      <label>Upload VCF File</label>
+      <input type="file" id="vcfFile" />
+
+      <label>Select Drug</label>
+      <select id="drug">
+        <option>CODEINE</option>
+        <option>CLOPIDOGREL</option>
+        <option>WARFARIN</option>
+      </select>
+
+      <label>Explanation Language</label>
+      <select id="language">
+        <option value="en">English</option>
+        <option value="hi">Hindi</option>
+      </select>
+
+      <button onclick="analyze()">Analyze</button>
+    </div>
+
+    <!-- RESULT CARD -->
+    <div class="card" id="resultCard" style="display:none;">
+      <h2>Analysis Result</h2>
+
+      <div id="riskBox" class="risk-box">
+        <span id="riskLabel"></span>
+        <span id="riskPercent"></span>
+      </div>
+
+      <div class="section">
+        <h3>Explainable AI Summary</h3>
+        <p id="explanation"></p>
+      </div>
+
+      <div class="section">
+        <h3>Decision Trace</h3>
+        <ul id="trace"></ul>
+      </div>
+
+      <div class="section">
+        <h3>Raw JSON Output</h3>
+        <pre id="jsonOutput"></pre>
+      </div>
+    </div>
+
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>
