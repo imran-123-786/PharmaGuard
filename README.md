@@ -1,186 +1,182 @@
-# 🧬 PharmaGuard – Precision Medicine Dashboard
+🧬 PharmaGuard – AI-Powered Pharmacogenomics Decision Support System
 
-PharmaGuard is a **pharmacogenomics-based precision medicine dashboard** that analyzes patient genetic data (VCF files) to assess **drug safety, risk level, and dosage recommendations** using explainable AI.
+PharmaGuard is an AI-driven precision medicine platform that analyzes pharmacogenomic VCF data to predict drug safety, dosage requirements, adverse reactions, and alternative therapies based on a patient’s genetic profile.
 
-The platform is designed for **hackathons, clinical demos, and healthcare innovation**, focusing on **safe, interpretable, and guideline-aware decision support**.
+The system converts raw genetic variants (STAR alleles & genotypes) into explainable, actionable clinical insights, helping clinicians and patients make safer drug decisions.
 
----
 
-## 🚀 Problem Statement
+🚨 Problem Statement
+Adverse Drug Reactions (ADRs) are a major cause of hospitalization and mortality worldwide.
+Many ADRs occur because genetic differences affect how patients metabolize drugs, but this information is rarely used in routine prescribing.
+Goal:
+Build a system that:
+Accepts genomic VCF data
+Identifies gene–drug interactions
+Predicts risk, dosage adjustments, and safer alternatives
+Presents results in a clear, explainable, and multilingual UI
 
-Different patients respond differently to the same drug due to genetic variations.  
-Incorrect drug choice or dosage can lead to:
-- Adverse drug reactions
-- Drug toxicity
-- Treatment failure
 
-PharmaGuard addresses this by:
-- Analyzing patient **genetic variants**
-- Mapping them to **pharmacogenomic (PGx) guidelines**
-- Providing **risk-aware, explainable recommendations**
+💡 Solution Overview
+PharmaGuard processes clinically relevant pharmacogenomic genes such as:
+CYP2D6
 
----
+CYP2C19
 
-## 🧠 Solution Overview
+CYP2C9
 
-PharmaGuard allows users to:
-1. Upload a **VCF (Variant Call Format)** file
-2. Select a **drug**
-3. Analyze genetic impact on drug metabolism
-4. Visualize **risk level and confidence**
-5. Get **Explainable AI insights**
-6. Download a **structured clinical report**
+SLCO1B1
 
-The system is designed to **avoid unsafe assumptions** and returns `"Unknown"` risk when evidence is insufficient.
+TPMT
 
----
+DPYD
+Using rule-based pharmacogenomics logic (CPIC-aligned), the system determines:
+Drug safety level
+Dosage recommendations
+Potential adverse symptoms
+Recommended actions if the drug is already taken
+Alternative drugs with lower genetic risk
+All results are visualized using an intuitive dashboard with charts, tables, and explainable summaries.
 
-## 🧪 Supported Drugs & Genes
+🧠 Key Features
 
-| Drug | Gene |
-|----|----|
-| CODEINE | CYP2D6 |
-| WARFARIN | CYP2C9 |
-| CLOPIDOGREL | CYP2C19 |
-| SIMVASTATIN | SLCO1B1 |
-| AZATHIOPRINE | TPMT |
-| FLUOROURACIL | DPYD |
+🔬 Genetic Drug Risk Analysis
+Upload .vcf pharmacogenomic files
+STAR allele & genotype interpretation
+Risk classification:
+Safe
+Adjust Dosage
+Toxic
+Unknown
 
-✔ 6 drugs  
-✔ 6 pharmacogenomic genes  
-✔ Fully aligned with CPIC-style logic  
+🧪 Drug Sensitivity Index (DSI)
+Converts genetic metabolizer status into a risk percentage
+Helps compare drug safety at a glance
+Fully explainable & guideline-based
 
----
+⚠️ Symptoms & Actions (If Already Taken)
+Predicts possible adverse symptoms
+Suggests immediate clinical actions
+Activated automatically for risky cases
 
-## ✨ Key Features
+💊 Alternative Drug & Dosage Recommendations
+Suggests genetically safer alternatives
+Displays dosage guidance
+CPIC-aligned clinical advice
 
-### 🔬 Genetic Analysis
-- Parses VCF files
-- Detects pharmacogenomic variants
-- Normalizes star alleles (e.g. `*2 → *1/*2`)
+📊 Visual Analytics
+Bar chart: Risk confidence
+Pie chart: Risk category distribution
+Color-coded severity indicators
 
-### ⚠️ Risk Assessment
-- Classifies patients as:
-  - **Safe**
-  - **Adjust Dosage**
-  - **Toxic**
-  - **Unknown (safe fallback)**
-- Confidence score provided for every result
+🌍 Multilingual Support
+Full UI translation using Google Translate
+Support:
+English
+Hindi
+Kannada
+Tamil
+Telugu
 
-### 📊 Risk Visualization
-- Bar chart (confidence %)
-- Pie chart (risk category)
-- Color-coded severity indicators
 
-### 🧬 Detected Gene Panel
-- Displays all 6 genes
-- Clearly marks detected / not detected genes
 
-### 🤖 Explainable AI
-- Human-readable explanation of results
-- Explains *why* a risk is assigned
-- Avoids hallucinated medical advice
+🔐 Secure Login (Demo Mode)
+Controlled dashboard access
+Prevents unauthorized analysis
 
-### 🌐 Multi-language Support
-- English
-- Hindi
-- Kannada
-- Tamil
-- Telugu
 
-### 💬 24/7 AI Help Assistant
-- Answers patient queries about:
-  - Risk meaning
-  - Drug safety
-  - Genetic impact
-- Uses latest analysis as context
+Demo Credentials
+Email: demo@pharmaguard.ai
+Password: pharmaguard123
 
-### 📄 Downloadable Report
-- One-click export
-- Structured JSON report
-- Ready for EHR / clinical systems
 
----
+📋 Structured JSON Report
+Machine-readable clinical output
+Copy-to-Clipboard (CTC)
+Downloadable JSON repor
 
-## 🖥️ Tech Stack
 
-### Backend
-- **FastAPI**
-- **Python**
-- Rule-based pharmacogenomics engine
-- Safe fallback logic
+🧾 Audit & Explainability
+Decision trace for every analysis
+No raw genome storage
+Explainable, transparent logic
 
-### Frontend
-- HTML
-- CSS (light blue & white medical theme)
-- JavaScript
-- Chart.js for visualization
+🧱 Tech Stack
+Frontend
+HTML5
+CSS3
+JavaScript (Vanilla)
+Chart.js
+Google Translate Widget
 
-### Data
-- VCF (Variant Call Format)
-- Pharmacogenomic rules (JSON)
 
----
+Backend
+Python
+FastAPI
+Rule-based Pharmacogenomics Engine
+Data
+VCF v4.2
+STAR Allele Annotations
+CPIC-inspired rules
 
-## 📁 Project Structure
 
+📁 Project Structure
 pharmaGuard/
 │
 ├── backend/
-│ ├── main.py
-│ ├── core/
-│ │ ├── vcf_parser.py
-│ │ ├── risk_engine.py
-│ │ ├── llm_explainer.py
-│ │ └── decision_trace.py
-│ └── data/
-│ └── pharmaco_rules.json
+│   ├── core/
+│   │   ├── risk_engine.py
+│   │   ├── vcf_parser.py
+│   │   ├── llm_explainer.py
+│   │
+│   ├── data/
+│   │   ├── pharmaco_rules.json
+│   │   ├── language_map.json
+│   │
+│   └── main.py
 │
 ├── frontend/
-│ ├── index.html
-│ ├── assets/
-│ │ ├── css/
-│ │ │ └── style.css
-│ │ └── js/
-│ │ ├── analyze.js
-│ │ ├── visualization.js
-│ │ └── chatbot.js
+│   ├── assets/
+│   │   ├── css/
+│   │   ├── js/
+│   │
+│   └── index.html
 │
-├── sample_test.vcf
-└── README.md
+├── .gitignore
+├── README.md
 
-
----
-
-## ▶️ How to Run the Project
-
-### 1️⃣ Backend Setup
-
-```bash
+▶️ How to Run the Project
 cd backend
 python -m venv venv
-venv\Scripts\activate   # Windows
-pip install fastapi uvicorn
+venv\Scripts\activate
+pip install -r requirements.txt
 uvicorn main:app --reload
+
+Backend runs at:
 http://127.0.0.1:8000
 
-Frontend Setup
+Frontend
+Open frontend/index.html in browser
+OR
+Use Live Server in VS Code
 
-Open frontend/index.html
-
-Use Live Server or open directly in browser
-
-Upload sample_test.vcf
-
-Select a drug
-
-Click Run Analysis
 
 🧪 Sample Input
+The system supports .vcf files containing:
+GENE
+STAR allele
+Genotype (GT)
+Example:GENE=CYP2D6; STAR=*4; GT=0/1
 
-A sample VCF file is provided:
 
-sample_test.vcf
-❤️ Final Note
+🏥 Clinical Disclaimer
 
-PharmaGuard demonstrates how AI + genomics can improve drug safety, personalization, and trust in healthcare systems.
+PharmaGuard is a clinical decision-support tool.
+Final prescribing decisions must be made by qualified healthcare professionals.
+
+
+📌 Future Enhancements
+PDF clinical report export
+EHR integration
+Gene-level heatmap
+ML-based sensitivity refinement
+Mobile application
