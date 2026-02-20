@@ -2,7 +2,7 @@ fastapi
 uvicorn
 pydantic
 python-dotenv
-openai
 sqlalchemy
 psycopg2-binary
-pymysql
+openai
+python-multipart
